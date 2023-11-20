@@ -35,7 +35,3 @@ jobs:
                -H "Authorization: Bearer ${{ secrets.YOUR_SECRET_TOKEN }}" \
                -H "Content-Type: application/json" \
                -d "$JSON_DATA"
-          
-          #1. repo ayarlarında yeni environment oluştur
-          #2. environment'ın içerisine yeni secret key oluştur
-          #3. YOUR_SECRET_TOKEN = ""
