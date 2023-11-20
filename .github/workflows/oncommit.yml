@@ -18,7 +18,7 @@ jobs:
 
       - name: Pull data from github
         run: |
-          COMMITTER_NAME=$(git log -1 --pretty=format:'%an')
+          COMMITTER_NAME=$(git --git-dir=$GITHUB_WORKSPACE/../.git log -1 --pretty=format:'%an')
           COMMITTER_EMAIL=$(git --git-dir=../../.git log -1 --pretty=format:'%ae')
           REPO_NAME=$(basename $PWD)
           CHANGED_FILES=$(git --git-dir=../../.git diff --name-only ${{ github.event.before }} ${{ github.sha }})
