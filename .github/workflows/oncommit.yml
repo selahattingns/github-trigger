@@ -1,0 +1,42 @@
+name: On Commit
+
+on:
+  push:
+    branches:
+      - '*'
+jobs:
+  http-post-request:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up environment variables
+        run: |
+          echo "HTTP_URL=https://www.example.com" >> $GITHUB_ENV
+
+      - name: Run HTTP POST request
+        run: |
+          COMMITTER_NAME=$(git log -1 --pretty=format:'%an')
+          COMMITTER_EMAIL=$(git log -1 --pretty=format:'%ae')
+          REPO_NAME=$(basename $PWD)
+          CHANGED_FILES=$(git diff --name-only ${{ github.event.before }} ${{ github.sha }})
+          COMMIT_TIMESTAMP=$(git log -1 --pretty=format:%ct)
+          COMMIT_DATE=$(date -u -d @$COMMIT_TIMESTAMP +"%Y-%m-%dT%H:%M:%SZ")
+          
+          JSON_DATA='{"name": "'$COMMITTER_NAME'", 
+                      "email": "'$COMMITTER_EMAIL'",
+                      "repo_name": "'$REPO_NAME'",
+                      "changed_files":"'$CHANGED_FILES'",
+                      "commit_date":"'$COMMIT_DATE'"
+                    }'
+          
+          curl -X POST "$HTTP_URL/post" \
+               -H "Authorization: Bearer ${{ secrets.YOUR_SECRET_TOKEN }}" \
+               -H "Content-Type: application/json" \
+               -d "$JSON_DATA"
+          
+          #1. repo ayarlarında yeni environment oluştur
+          #2. environment'ın içerisine yeni secret key oluştur
+          #3. YOUR_SECRET_TOKEN = ""
