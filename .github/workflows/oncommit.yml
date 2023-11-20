@@ -25,12 +25,7 @@ jobs:
           COMMIT_TIMESTAMP=$(git log -1 --pretty=format:%ct)
           COMMIT_DATE=$(date -u -d @$COMMIT_TIMESTAMP +"%Y-%m-%dT%H:%M:%SZ")
           
-          JSON_DATA='{"name": "'$COMMITTER_NAME'", 
-                      "email": "'$COMMITTER_EMAIL'",
-                      "repo_name": "'$REPO_NAME'",
-                      "changed_files":"'$CHANGED_FILES'",
-                      "commit_date":"'$COMMIT_DATE'"
-                    }'
+          JSON_DATA="{\"name\": \"$COMMITTER_NAME\", \"email\": \"$COMMITTER_EMAIL\", \"repo_name\": \"$REPO_NAME\", \"changed_files\":$CHANGED_FILES, \"commit_date\":\"$COMMIT_DATE\"}"
           
           curl -X POST "$HTTP_URL" \
                -H "Authorization: Bearer ${{ secrets.YOUR_SECRET_TOKEN }}" \
