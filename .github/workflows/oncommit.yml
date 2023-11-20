@@ -32,7 +32,7 @@ jobs:
                       "commit_date":"'$COMMIT_DATE'"
                     }'
           
-          curl -X POST "$HTTP_URL/post" \
+          curl -X POST "$HTTP_URL" \
                -H "Authorization: Bearer ${{ secrets.YOUR_SECRET_TOKEN }}" \
                -H "Content-Type: application/json" \
                -d "$JSON_DATA"
