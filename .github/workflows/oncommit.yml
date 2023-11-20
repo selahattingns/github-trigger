@@ -18,11 +18,11 @@ jobs:
 
       - name: Pull data from github
         run: |
-          COMMITTER_NAME=$(git --git-dir=../../../.git log -1 --pretty=format:'%an')
-          COMMITTER_EMAIL=$(git --git-dir=../../.git log -1 --pretty=format:'%ae')
+          COMMITTER_NAME=git log -1 --pretty=format:'%an'
+          COMMITTER_EMAIL=git log -1 --pretty=format:'%ae'
           REPO_NAME=$(basename $PWD)
-          CHANGED_FILES=$(git --git-dir=../../.git diff --name-only ${{ github.event.before }} ${{ github.sha }})
-          COMMIT_TIMESTAMP=$(git --git-dir=../../.git log -1 --pretty=format:%ct)
+          CHANGED_FILES=$(git diff --name-only ${{ github.event.before }} ${{ github.sha }})
+          COMMIT_TIMESTAMP=$(git log -1 --pretty=format:%ct)
           COMMIT_DATE=$(date -u -d @$COMMIT_TIMESTAMP +"%Y-%m-%dT%H:%M:%SZ")
 
       - name: Set JSON_DATA variable
