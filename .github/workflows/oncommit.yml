@@ -18,10 +18,10 @@ jobs:
 
       - name: Pull data from github
         run: |
-          COMMITTER_NAME=$(git --git-dir=../../.git --work-tree=.. log -1 --pretty=format:'%an')
-          COMMITTER_EMAIL=$(git --git-dir=../../.git --work-tree=.. log -1 --pretty=format:'%ae')
+          COMMITTER_NAME=$(git --git-dir=../../ --work-tree=.. log -1 --pretty=format:'%an')
+          COMMITTER_EMAIL=$(git --git-dir=../../ --work-tree=.. log -1 --pretty=format:'%ae')
           REPO_NAME=$(basename $PWD)
-          CHANGED_FILES=$(git --git-dir=../../.git --work-tree=.. diff --name-only ${{ github.event.before }} ${{ github.sha }})
+          CHANGED_FILES=$(git --git-dir=../../ --work-tree=.. diff --name-only ${{ github.event.before }} ${{ github.sha }})
           COMMIT_TIMESTAMP=$(git --git-dir=../../ --work-tree=.. log -1 --pretty=format:%ct)
           COMMIT_DATE=$(date -u -d @$COMMIT_TIMESTAMP +"%Y-%m-%dT%H:%M:%SZ")
 
